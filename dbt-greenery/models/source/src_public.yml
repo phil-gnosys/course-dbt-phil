@@ -1,0 +1,46 @@
+version: 2
+
+sources:
+
+  - name: greenery # name of the source 
+    schema: public # this is the schema our raw data lives in
+    database: dbt # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+#    freshness:
+#      warn_after: {count: 24, period: hour}
+#      error_after: {count: 48, period: hour}
+
+    tables:
+      - name: addresses
+        loaded_at_field: created_at
+        description: Contains address data
+
+      - name: events
+        loaded_at_field: created_at
+        description: Contains event data
+
+      - name: order_items
+        loaded_at_field: created_at
+        description: Contains order item data
+
+      - name: orders
+        loaded_at_field: created_at
+        description: Contains order data
+
+      - name: products
+        loaded_at_field: created_at
+        description: Contains product data
+
+      - name: promos
+        loaded_at_field: created_at
+        description: Contain promo data
+
+      - name: users 
+        loaded_at_field: created_at
+        description: >
+          Contains information about users
