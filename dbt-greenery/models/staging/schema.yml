@@ -1,0 +1,227 @@
+
+version: 2
+
+models:
+  - name: stg_address
+    description: "Staging Address Data"
+    columns:
+      - name: address_id
+        description: "Address Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: address_guid
+        description: "Address GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: address
+        description: "Address"
+        tests:
+          - not_null
+      - name: zipcode
+        description: "Zip code"
+        tests:
+          - not_null
+      - name: state
+        description: "State"
+        tests:
+          - not_null
+      - name: country
+        description: "Country"
+        tests:
+          - not_null
+
+  - name: stg_event
+    description: "Staging Event Data"
+    columns:
+    - name: event_id
+      description: "Event Internal Identifier"
+      tests:
+        - unique
+        - not_null
+    - name: event_guid
+      description: "Event GUID (Primary Key)"
+      tests:
+        - unique
+        - not_null
+    - name: session_guid
+      description: "Session GUID"
+      tests:
+        - not_null
+    - name: user_guid
+      description: "User GUID (Foreign Key)"
+      tests:
+        - not_null
+    - name: page_url
+      description: "Page URL"
+      tests:
+        - not_null
+    - name: event_type
+      description: "Event Type"
+      tests:
+        - not_null
+    - name: created_utc_datetime
+      description: "Created UTC Datetime"
+
+  - name: stg_order
+    description: "Staging Order Data"
+    columns:
+      - name: order_id
+        description: "Order Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: order_guid
+        description: "Order GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: user_guid
+        description: "User GUID (Foreign Key)"
+        tests:
+          - not_null
+      - name: promotion_code
+        description: "Promotion Code (Foreign Key)"
+      - name: address_guid
+        description: "Address GUID (Foreign Key)"
+        tests:
+          - not_null
+      - name: order_amount
+        description: "Order Amount"
+        tests:
+          - not_null
+      - name: shipping_amount
+        description: "Shipping Amount"
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Total Amount"
+        tests:
+          - not_null
+      - name: tracking_guid
+        description: "Tracking GUID"
+        tests:
+          - unique
+      - name: shipping_service
+        description: "Shipping Service"
+      - name: estimated_delivery_utc_datetime
+        description: "Estimated Delivery UTC Datetime"
+      - name: delivered_utc_datetime
+        description: "Delivered UTC Datetime"
+      - name: order_status
+        description: "Order Status"
+
+  - name: stg_order_item
+    description: "Staging Order Item Data"
+    columns:
+      - name: order_item_id
+        description: "Order Item Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: order_guid
+        description: "Order GUID (Foreign Key)"
+        tests:
+          - not_null
+      - name: product_guid
+        description: "Product GUID (Foreign Key)"
+        tests:
+          - not_null
+      - name: order_item_quantity
+        description: "Order Item Quantity"
+        tests:
+          - not_null
+
+  - name: stg_product
+    description: "Staging Product Data"
+    columns:
+      - name: product_id
+        description: "Product Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: product_guid
+        description: "Product GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: product_description
+        description: "Product Description"
+        tests:
+          - unique
+          - not_null
+      - name: product_price
+        description: "Product Price"
+        tests:
+          - not_null
+      - name: product_quantity
+        description: "Product Quantity"
+        tests:
+          - not_null
+
+  - name: stg_promotion
+    description: "Staging Promotion Data"
+    columns:
+      - name: promotion_id
+        description: "Promotion Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: promotion_code
+        description: "Promotion Code (Primary Code)"
+        tests:
+          - unique
+          - not_null
+      - name: promotion_discount
+        description: "Promotion Discount"
+        tests:
+          - not_null
+      - name: promotion_status
+        description: "Promotion Status"
+        tests:
+          - not_null
+
+  - name: stg_user
+    description: "Staging User Data"
+    columns:
+      - name: user_id
+        description: "User Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: user_guid
+        description: "User GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: address_guid
+        description: "Address GUID (Foreign Key)"
+        tests:
+          - not_null
+      - name: first_name
+        description: "First Name"
+        tests:
+          - not_null
+      - name: last_name
+        description: "Last Name"
+        tests:
+          - not_null
+      - name: email
+        description: "Email"
+        tests:
+          - not_null
+      - name: phone_number
+        description: "Phone Number"
+        tests:
+          - not_null
+      - name: created_utc_datetime
+        description: "Created UTC Datetime"
+        tests:
+          - not_null
+      - name: updated_utc_datetime
+        description: "Updated UTC Datetime"
+        tests:
+          - not_null
+          
+
