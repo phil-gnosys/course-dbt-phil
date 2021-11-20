@@ -20,6 +20,7 @@ with order_source as (
         , estimated_delivery_at
         , delivered_at
         , status
+        , created_at
     from {{ source('greenery', 'orders') }}
 )
 
@@ -30,6 +31,7 @@ with order_source as (
         , user_id as user_guid
         , promo_id as promotion_code
         , address_id as address_guid
+        , created_at as created_utc_datetime
         , order_cost as order_amount
         , shipping_cost as shipping_amount
         , order_total as total_amount
@@ -47,6 +49,7 @@ select
     , user_guid
     , promotion_code
     , address_guid
+    , created_utc_datetime    
     , order_amount
     , shipping_amount
     , total_amount
