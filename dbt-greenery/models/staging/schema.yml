@@ -87,6 +87,8 @@ models:
         description: "Address GUID (Foreign Key)"
         tests:
           - not_null
+      - name: created_utc_datetime
+        description: "Created UTC datetime"
       - name: order_amount
         description: "Order Amount"
         tests:
