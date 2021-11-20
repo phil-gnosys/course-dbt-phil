@@ -18,29 +18,28 @@ sources:
     tables:
       - name: addresses
         loaded_at_field: created_at
-        description: Contains address data
+        description: "Source Address Data"
 
       - name: events
         loaded_at_field: created_at
-        description: Contains event data
+        description: "Source Event Data"
 
       - name: order_items
         loaded_at_field: created_at
-        description: Contains order item data
+        description: "Source Order Item Data"
 
       - name: orders
         loaded_at_field: created_at
-        description: Contains order data
+        description: "Source Order Data"
 
       - name: products
         loaded_at_field: created_at
-        description: Contains product data
+        description: "Source Product Data"
 
       - name: promos
         loaded_at_field: created_at
-        description: Contain promo data
+        description: "Source Promotion Data"
 
       - name: users 
         loaded_at_field: created_at
-        description: >
-          Contains information about users
+        description: "Source User Data"
