@@ -1,12 +1,12 @@
 {{
     config(
         materialized = 'view',
-        unique_key = 'user_id'
+        unique_key = 'user_guid'
     )
 }}
 
-with user_source as (
-    select
+WITH user_source AS (
+    SELECT
         id
         , user_id
         , address_id
@@ -16,24 +16,24 @@ with user_source as (
         , phone_number
         , created_at
         , updated_at
-    from {{ source('greenery', 'users') }}
+    FROM {{ source('greenery', 'users') }}
 )
 
-, user_rename as (
-    select
-        id as user_id
-        , user_id as user_guid
-        , address_id as address_guid
+, user_rename AS (
+    SELECT
+        id AS user_id
+        , user_id AS user_guid
+        , address_id AS address_guid
         , first_name
         , last_name
         , email
         , phone_number
-        , created_at as created_utc_datetime
-        , updated_at as updated_utc_datetime
-    from user_source
+        , created_at AS created_utc_datetime
+        , updated_at AS updated_utc_datetime
+    FROM user_source
 )
 
-select
+SELECT
     user_id
     , user_guid
     , address_guid
@@ -43,4 +43,4 @@ select
     , phone_number
     , created_utc_datetime
     , updated_utc_datetime
-from user_rename
+FROM user_rename

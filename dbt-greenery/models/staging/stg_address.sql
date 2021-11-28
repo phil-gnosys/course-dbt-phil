@@ -1,37 +1,37 @@
 {{
     config(
         materialized = 'view',
-        unique_key = 'address_id'
+        unique_key = 'address_guid'
     )
 }}
 
-with address_source as (
-    select
+WITH address_source AS (
+    SELECT
         id
         , address_id
         , address
         , zipcode
         , state
         , country
-    from {{ source('greenery', 'addresses') }}
+    FROM {{ source('greenery', 'addresses') }}
 )
 
-, address_rename as (
-    select
-        id as address_id
-        , address_id as address_guid
+, address_rename AS (
+    SELECT
+        id AS address_id
+        , address_id AS address_guid
         , address
         , zipcode
         , state
         , country
-    from address_source
+    FROM address_source
 )
 
-select
+SELECT
     address_id
     , address_guid
     , address
     , zipcode
     , state
     , country
-from address_rename
+FROM address_rename

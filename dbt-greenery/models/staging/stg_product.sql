@@ -1,34 +1,36 @@
 {{
     config(
         materialized = 'view',
-        unique_key = 'product_id'
+        unique_key = 'product_guid'
     )
 }}
 
-with product_source as (
-    select
+WITH product_source AS (
+    SELECT
         id
         , product_id
         , name
-        , price
+        , price::NUMERIC(7,2)
         , quantity
-    from {{ source('greenery', 'products') }}
+    FROM {{ source('greenery', 'products') }}
 )
 
-, product_rename as (
-    select
-        id as product_id
-        , product_id as product_guid
-        , name as product_description
-        , price as product_price
-        , quantity as product_quantity
-    from product_source
+, product_rename AS (
+    SELECT
+        id AS product_id
+        , product_id AS product_guid
+        , name AS product_description
+        , price AS product_unit_price
+        , quantity AS product_on_hand_quantity
+        , (price * quantity) AS product_on_hand_value
+    FROM product_source
 )
 
-select
+SELECT
     product_id
     , product_guid
     , product_description
-    , product_price
-    , product_quantity
-from product_rename
+    , product_unit_price
+    , product_on_hand_quantity
+    , product_on_hand_value
+FROM product_rename

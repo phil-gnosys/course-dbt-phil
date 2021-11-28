@@ -81,38 +81,50 @@ models:
         description: "User GUID (Foreign Key)"
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_user')
+              field: user_guid
       - name: promotion_code
         description: "Promotion Code (Foreign Key)"
       - name: address_guid
         description: "Address GUID (Foreign Key)"
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_address')
+              field: address_guid
       - name: created_utc_datetime
         description: "Created UTC datetime"
-      - name: order_amount
-        description: "Order Amount"
+      - name: order_product_amount
+        description: "Order Product Amount"
         tests:
           - not_null
-      - name: shipping_amount
-        description: "Shipping Amount"
+          - positive_value
+      - name: order_shipping_amount
+        description: "Order Shipping Amount"
         tests:
           - not_null
-      - name: total_amount
-        description: "Total Amount"
+          - positive_value
+      - name: order_total_amount
+        description: "Order Total Amount"
         tests:
           - not_null
       - name: tracking_guid
         description: "Tracking GUID"
         tests:
           - unique
-      - name: shipping_service
-        description: "Shipping Service"
+      - name: shipping_service_code
+        description: "Shipping Service Code"
       - name: estimated_delivery_utc_datetime
         description: "Estimated Delivery UTC Datetime"
       - name: delivered_utc_datetime
         description: "Delivered UTC Datetime"
       - name: order_status
         description: "Order Status"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Pending','Preparing','Shipped','Delivered']
 
   - name: stg_order_item
     description: "Staging Order Item Data"
@@ -126,12 +138,18 @@ models:
         description: "Order GUID (Foreign Key)"
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_order')
+              field: order_guid
       - name: product_guid
         description: "Product GUID (Foreign Key)"
         tests:
           - not_null
-      - name: order_item_quantity
-        description: "Order Item Quantity"
+          - relationships:
+              to: ref('stg_product')
+              field: product_guid
+      - name: order_product_quantity
+        description: "Order Product Quantity"
         tests:
           - not_null
 
@@ -153,14 +171,16 @@ models:
         tests:
           - unique
           - not_null
-      - name: product_price
-        description: "Product Price"
+      - name: product_unit_price
+        description: "Product Unit Price"
         tests:
           - not_null
-      - name: product_quantity
-        description: "Product Quantity"
+          - positive_value
+      - name: product_on_hand_quantity
+        description: "Product On Hand Quantity"
         tests:
           - not_null
+          - positive_value
 
   - name: stg_promotion
     description: "Staging Promotion Data"
@@ -175,14 +195,17 @@ models:
         tests:
           - unique
           - not_null
-      - name: promotion_discount
-        description: "Promotion Discount"
+      - name: promotion_discount_percentage
+        description: "Promotion Discount Percentage"
         tests:
           - not_null
+          - positive_value
       - name: promotion_status
         description: "Promotion Status"
         tests:
           - not_null
+          - accepted_values:
+              values: ['Active','Inactive']
 
   - name: stg_user
     description: "Staging User Data"
@@ -201,6 +224,9 @@ models:
         description: "Address GUID (Foreign Key)"
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_address')
+              field: address_guid
       - name: first_name
         description: "First Name"
         tests:

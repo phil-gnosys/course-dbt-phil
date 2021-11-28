@@ -1,0 +1,241 @@
+
+version: 2
+
+models:
+  - name: dim_address
+    description: " Address Dimension"
+    columns:
+      - name: address_id
+        description: "Address Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: address_guid
+        description: "Address GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: address
+        description: "Address"
+        tests:
+          - not_null
+      - name: zipcode
+        description: "Zip code"
+        tests:
+          - not_null
+      - name: state
+        description: "State"
+        tests:
+          - not_null
+      - name: country
+        description: "Country"
+        tests:
+          - not_null
+
+  - name: dim_date
+    description: "Date Dimension"
+    columns:
+    - name: calendar_date
+      description: "Calendar Date"
+      tests:
+        - unique
+        - not_null
+    - name: calendar_year
+      description: "Calendar Year"
+      tests:
+        - not_null
+    - name: calendar_month
+      description: "Calendar Month"
+      tests:
+        - not_null
+    - name: calendar_day
+      description: "Calendar Day"
+      tests:
+        - not_null
+
+  - name: dim_order_date
+    description: "Order Date Dimension"
+    columns:
+    - name: order_utc_date
+      description: "Order UTC Date"
+      tests:
+        - unique
+        - not_null
+    - name: order_utc_year
+      description: "Order UTC Year"
+      tests:
+        - not_null
+    - name: order_utc_month
+      description: "Order UTC Month"
+      tests:
+        - not_null
+    - name: order_utc_day
+      description: "Order UTC Day"
+      tests:
+        - not_null
+
+  - name: dim_estimated_delivery_date
+    description: "Estimated Delivery Date Dimension"
+    columns:
+    - name: estimated_delivery_utc_date
+      description: "Estimated Delivery UTC Date"
+      tests:
+        - unique
+        - not_null
+    - name: estimated_delivery_utc_year
+      description: "Estimated Delivery UTC Year"
+      tests:
+        - not_null
+    - name: estimated_delivery_utc_month
+      description: "Estimated Delivery UTC Month"
+      tests:
+        - not_null
+    - name: estimated_delivery_utc_day
+      description: "Estimated Delivery UTC Day"
+      tests:
+        - not_null
+
+  - name: dim_delivered_date
+    description: "Delivered Date Dimension"
+    columns:
+    - name: delivered_utc_date
+      description: "Delivered UTC Date"
+      tests:
+        - unique
+        - not_null
+    - name: delivered_utc_year
+      description: "Delivered UTC Year"
+      tests:
+        - not_null
+    - name: delivered_utc_month
+      description: "Delivered UTC Month"
+      tests:
+        - not_null
+    - name: delivered_utc_day
+      description: "Delivered UTC Day"
+      tests:
+        - not_null
+
+  - name: dim_web_event_type
+    description: "Web Event Type Dimension"
+    columns:
+      - name: dim_web_event_type
+        description: "Web Event Type"
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_product
+    description: "Product Dimension"
+    columns:
+      - name: product_id
+        description: "Product Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: product_guid
+        description: "Product GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: product_description
+        description: "Product Description"
+        tests:
+          - unique
+          - not_null
+      - name: product_unit_price
+        description: "Product Unit Price"
+        tests:
+          - not_null
+      - name: product_on_hand_quantity
+        description: "Product On Hand Quantity"
+        tests:
+          - not_null
+      - name: product_on_hand_value
+        description: "Product On Hand Value"
+        tests:
+          - not_null
+
+  - name: dim_promotion
+    description: "Promotion Dimension"
+    columns:
+      - name: promotion_id
+        description: "Promotion Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: promotion_code
+        description: "Promotion Code (Primary Code)"
+        tests:
+          - unique
+          - not_null
+      - name: promotion_discount_percentage
+        description: "Promotion Discount Percentage"
+        tests:
+          - not_null
+      - name: promotion_status
+        description: "Promotion Status"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Active','Inactive','No Promotion']
+
+  - name: dim_shipping_service
+    description: "Shipping Server Dimension"
+    columns:
+      - name: shipping_service_code
+        description: "Shipping Service Code"
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_user
+    description: "User Dimension"
+    columns:
+      - name: user_id
+        description: "User Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: user_guid
+        description: "User GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: "First Name"
+        tests:
+          - not_null
+      - name: last_name
+        description: "Last Name"
+        tests:
+          - not_null
+      - name: full_name
+        description: "Full Name"
+        tests:
+          - not_null
+      - name: email
+        description: "Email"
+        tests:
+          - not_null
+      - name: user_address
+        description: "User Address"
+        tests:
+          - not_null
+      - name: user_zipcode
+        description: "User ZIP Code"
+        tests:
+          - not_null
+      - name: user_state
+        description: "User State"
+        tests:
+          - not_null
+      - name: user_country
+        description: "User Country"
+        tests:
+          - not_null                              
+      - name: user_since_utc_date
+        description: "User Since UTC Date"
+        tests:
+          - not_null
+

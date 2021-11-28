@@ -1,0 +1,151 @@
+version: 2
+
+models:
+
+  - name: fact_order 
+    description: "Order Fact"
+    columns:
+      - name: order_guid
+        description: "Order GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: user_guid
+        description: "User GUID (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_user')
+              field: user_guid
+      - name: promotion_code
+        description: "Promotion Code (Foreigh Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_promotion')
+              field: promotion_code
+      - name: address_guid
+        description: "Address GUID (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_address')
+              field: address_guid      
+      - name: tracking_guid
+        description: "Tracking GUID"
+      - name: shipping_service_code
+        description: "Shipping Service Code (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_shipping_service')
+              field: shipping_service_code
+      - name: order_status
+        description: "Order Status Code (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_order_status')
+              field: order_status
+      - name: order_utc_date
+        description: "Order UTC Date (Foreign Key)"
+        tests:
+          - relationships:
+              to: ref('dim_order_date')
+              field: order_utc_date
+      - name: estimated_delivery_utc_date
+        description: "Estimated Delivery UTC Date (Foreign Key)"
+        tests:
+          - relationships:
+              to: ref('dim_estimated_delivery_date')
+              field: estimated_delivery_utc_date
+      - name: delivered_utc_date
+        description: "Delivered UTC Date (Foreign Key)"
+        tests:
+          - relationships:
+              to: ref('dim_delivered_date')
+              field: delivered_utc_date
+      - name: order_count 
+        description: "Order Count"
+        tests:
+          - not_null
+      - name: order_delivered_count
+        description: "Order Delivered Count"
+        tests:
+          - not_null
+      - name: order_late_delivery_count
+        description: "Order Late Delivery Count"
+        tests:
+          - not_null
+      - name: order_gross_amount
+        description: "Order Gross Amount"
+        tests:
+          - not_null      
+      - name: order_discount_amount
+        description: "Order Discount Amount"
+        tests:
+          - not_null
+      - name: order_total_amount
+        description: "Order Total Amount"
+        tests:
+          - not_null
+      - name: order_product_amount
+        description: "Order Product Amount"
+        tests:
+          - not_null
+      - name: order_shipping_amount
+        description: "Order Shipping Amount"
+        tests:
+          - not_null
+      - name: order_product_count
+        description: "Order Product Count"
+        tests:
+          - not_null
+      - name: order_product_quantity
+        description: "Order Product Quantity"
+        tests:
+          - not_null
+
+  - name: fact_order_item
+    description: "Order Item Fact"
+    columns:
+      - name: order_item_id
+        description: "Order Item Internal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: order_guid
+        description: "Order GUID (Foreign Key)"
+        tests:
+          - not_null
+      - name: product_guid
+        description: "Product GUID (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_guid
+      - name: user_guid
+        description: "User GUID (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_user')
+              field: user_guid
+      - name: address_guid
+        description: "Address GUID (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_address')
+              field: address_guid
+      - name: order_utc_date
+        description: "Order UTC Date"
+        tests:
+          - relationships:
+              to: ref('dim_order_date')
+              field: order_utc_date
+      - name: order_product_quantity
+        description: "Order Product Quantity"
+        tests:
+          - not_null
