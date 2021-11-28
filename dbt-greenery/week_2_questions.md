@@ -61,3 +61,25 @@ Paste in an image of your DAG from the docs
 
 DAG:
 ![Lineage DAG](./dbt-dag.png)
+
+(Part 2) Tests
+We added some more models and transformed some data! Now we need to make sure they’re accurately reflecting the data. Add dbt tests into your dbt project on your existing models from Week 1, and new models from the section above
+
+What assumptions are you making about each model? (i.e. why are you adding each test?)
+
+- added a bunch of tests: unique, not_null, accepted_values, relationships, postive_value
+- if more time would add calculation checks on multi-columns
+- added tests to dim and fact tables as well as staging tables.
+
+Did you find any “bad” data as you added and ran tests on your models? How did you go about either cleaning the data in the dbt model or adjusting your assumptions/tests?
+
+- for some I have special rows, 0 - Not Applicable etc
+- for others I removed the tests.
+- there were some data quality issues with the dollar amounts in the orders. Would be good to have unit price in the order items, line extension.
+
+Apply these changes to your github repo
+
+Your stakeholders at Greenery want to understand the state of the data each day. Explain how you would ensure these tests are passing regularly and how you would alert stakeholders about bad data getting through.
+
+- One way would be to have a data quality dimension on the fact tables
+- Also a dashboard with data quality issues, and or a report emailed to the stakeholder explaining the issues and the trend.
