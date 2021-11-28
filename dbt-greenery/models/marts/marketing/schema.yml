@@ -1,0 +1,74 @@
+version: 2
+
+models:
+
+  - name: obt_user_order 
+    description: "User Order One Big Table"
+    columns:
+      - name: user_guid
+        description: "User GUID (Foreign Key"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_user')
+              field: user_guid
+      - name: order_guid
+        description: "Order GUID (Primary Key)"
+        tests:
+          - unique
+          - not_null
+      - name: user_address
+        description: "User Address"
+        tests:
+          - not_null
+      - name: user_zipcode
+        description: "User Zipcode"
+        tests:
+          - not_null
+      - name: user_state
+        description: "User State"
+        tests:
+          - not_null
+      - name: user_country
+        description: "User Country"
+        tests:
+          - not_null
+      - name: email
+        description: "User Email"
+        tests:
+          - not_null
+      - name: phone_number
+        description: "User Phone Number"
+        tests:
+          - not_null
+      - name: user_since_utc_date
+        description: "User Since UTC Date"
+        tests:
+          - not_null
+      - name: order_utc_date
+        description: "Order UTC Date"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_order_date')
+              field: order_utc_date
+      - name: order_count
+        description: "Order Count"
+        tests:
+          - not_null
+          - positive_value
+      - name: order_total_amount
+        description: "Order Total Amount"
+        tests:
+          - not_null
+      - name: promotion_type
+        description: "Promotion Type"
+        tests:
+          - not_null
+      - name: promotion_code
+        description: "Promotion Code (Foreigh Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_promotion')
+              field: promotion_code

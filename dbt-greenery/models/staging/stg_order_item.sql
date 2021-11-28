@@ -1,31 +1,31 @@
 {{
     config(
         materialized = 'view',
-        unique_key = 'order_id, product_id'
+        unique_key = 'order_guid, product_guid'
     )
 }}
 
-with order_item_source as (
-    select
+WITH order_item_source AS (
+    SELECT
         id
         , order_id
         , product_id
         , quantity
-    from {{ source('greenery', 'order_items') }}
+    FROM {{ source('greenery', 'order_items') }}
 )
 
-, order_item_rename as (
-    select
-        id as order_item_id
-        , order_id as order_guid
-        , product_id as product_guid
-        , quantity as order_item_quantity
-    from order_item_source
+, order_item_rename AS (
+    SELECT
+        id AS order_item_id
+        , order_id AS order_guid
+        , product_id AS product_guid
+        , quantity AS order_product_quantity
+    FROM order_item_source
 )
 
-select
+SELECT
     order_item_id
     , order_guid
     , product_guid
-    , order_item_quantity
-from order_item_rename
+    , order_product_quantity
+FROM order_item_rename

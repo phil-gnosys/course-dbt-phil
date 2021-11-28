@@ -1,12 +1,12 @@
 {{
     config(
         materialized = 'view',
-        unique_key = 'event_id'
+        unique_key = 'event_guid'
     )
 }}
 
-with event_source as (
-    select
+WITH event_source AS (
+    SELECT
         id
         , event_id
         , session_id
@@ -14,22 +14,22 @@ with event_source as (
         , page_url
         , created_at
         , event_type
-    from {{ source('greenery', 'events') }}
+    FROM {{ source('greenery', 'events') }}
 )
 
-, event_rename as (
-    select
-        id as event_id
-        , event_id as event_guid
-        , session_id as session_guid
-        , user_id as user_guid
+, event_rename AS (
+    SELECT
+        id AS event_id
+        , event_id AS event_guid
+        , session_id AS session_guid
+        , user_id AS user_guid
         , page_url
         , event_type
-        , created_at as created_utc_datetime
-    from event_source
+        , created_at AS created_utc_datetime
+    FROM event_source
 )
 
-select
+SELECT
     event_id
     , event_guid
     , session_guid
@@ -37,4 +37,4 @@ select
     , page_url
     , event_type
     , created_utc_datetime
-from event_rename
+FROM event_rename

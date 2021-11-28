@@ -1,17 +1,18 @@
 {{
     config(
         materialized = 'view',
-        unique_key = 'order_id'
+        unique_key = 'order_guid'
     )
 }}
 
-with order_source as (
-    select
+WITH order_source AS (
+    SELECT
         id
         , order_id
         , user_id
         , promo_id
         , address_id
+        , created_at
         , order_cost
         , shipping_cost
         , order_total
@@ -20,42 +21,60 @@ with order_source as (
         , estimated_delivery_at
         , delivered_at
         , status
+    FROM {{ source('greenery', 'orders') }}
+)
+
+, order_transform AS (
+    SELECT
+        id
+        , order_id
+        , user_id
+        , INITCAP(promo_id) AS promo_id
+        , address_id
         , created_at
-    from {{ source('greenery', 'orders') }}
+        , (order_cost::NUMERIC(15,2))
+        , (shipping_cost::NUMERIC(15,2))
+        , (order_total::NUMERIC(15,2))
+        , tracking_id
+        , INITCAP(shipping_service) AS shipping_service
+        , estimated_delivery_at
+        , delivered_at
+        , INITCAP(status) AS status
+    FROM order_source
 )
 
-, order_rename as (
-    select
+, order_rename AS (
+    SELECT
         id as order_id
-        , order_id as order_guid
-        , user_id as user_guid
-        , promo_id as promotion_code
-        , address_id as address_guid
-        , created_at as created_utc_datetime
-        , order_cost as order_amount
-        , shipping_cost as shipping_amount
-        , order_total as total_amount
-        , tracking_id as tracking_guid
-        , shipping_service
-        , estimated_delivery_at as estimated_delivery_utc_datetime
-        , delivered_at as delivered_utc_datetime
-        , status as order_status
-    from order_source
+        , order_id AS order_guid
+        , user_id AS user_guid
+        , promo_id AS promotion_code
+        , address_id AS address_guid
+        , created_at AS created_utc_datetime
+        , order_cost AS order_product_amount
+        , shipping_cost AS order_shipping_amount
+        , order_total AS order_total_amount
+        , tracking_id AS tracking_guid
+        , shipping_service AS shipping_service_code
+        , estimated_delivery_at AS estimated_delivery_utc_datetime
+        , delivered_at AS delivered_utc_datetime
+        , status AS order_status
+    FROM order_transform
 )
 
-select
+SELECT
     order_id
     , order_guid
     , user_guid
     , promotion_code
     , address_guid
     , created_utc_datetime    
-    , order_amount
-    , shipping_amount
-    , total_amount
+    , order_product_amount
+    , order_shipping_amount
+    , order_total_amount
     , tracking_guid
-    , shipping_service
+    , shipping_service_code
     , estimated_delivery_utc_datetime
     , delivered_utc_datetime
     , order_status
-from order_rename
+FROM order_rename

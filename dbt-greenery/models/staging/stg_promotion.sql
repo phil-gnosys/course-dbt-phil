@@ -1,31 +1,40 @@
 {{
     config(
         materialized = 'view',
-        unique_key = 'promo_id'
+        unique_key = 'promo_code'
     )
 }}
 
-with promotion_source as (
-    select
+WITH promotion_source AS (
+    SELECT
         id
         , promo_id
         , discout
         , status
-    from {{ source('greenery', 'promos') }}
+    FROM {{ source('greenery', 'promos') }}
 )
 
-, promotion_rename as (
-    select
-        id as promotion_id
-        , promo_id as promotion_code
-        , discout as promotion_discount
-        , status as promotion_status
-    from promotion_source
+, promotion_transform AS (
+    SELECT
+        id
+        , INITCAP(promo_id) AS promo_id
+        , (discout::NUMERIC(5,2))
+        , INITCAP(status) AS status
+    FROM promotion_source
 )
 
-select
+, promotion_rename AS (
+    SELECT
+        id AS promotion_id
+        , promo_id AS promotion_code
+        , discout AS promotion_discount_percentage
+        , status AS promotion_status
+    FROM promotion_transform
+)
+
+SELECT
     promotion_id
     , promotion_code
-    , promotion_discount
+    , promotion_discount_percentage
     , promotion_status
-from promotion_rename
+FROM promotion_rename

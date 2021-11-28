@@ -1,0 +1,77 @@
+version: 2
+
+models:
+
+  - name: fact_web_event 
+    description: "Web Event Fact"
+    columns:
+      - name: web_event_id
+        description: "Web Event Intenal Identifier"
+        tests:
+          - unique
+          - not_null
+      - name: web_event_guid
+        description: "Web Event GUID"
+        tests:
+          - unique
+          - not_null
+      - name: web_session_guid
+        description: "Web Session GUID"
+        tests:
+          - not_null
+      - name: user_guid
+        description: "USER GUID (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_user')
+              field: user_guid      
+      - name: web_page_url
+        description: "Web Page URL"
+        tests:
+          - not_null
+      - name: product_guid
+        description: "Product GUID (Foreign Key)"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_guid
+      - name: web_event_type
+        description: "Web Event Type (Foreign Key)"
+        tests:
+          - relationships:
+              to: ref('dim_web_event_type')
+              field: web_event_type
+      - name: account_created_count
+        description: "Account Created Count"
+        tests:
+          - not_null
+          - positive_value
+      - name: product_view_count
+        description: "Product View Count"
+        tests:
+          - not_null
+          - positive_value
+      - name: product_add_count
+        description: "Product Add Count"
+        tests:
+          - not_null
+          - positive_value
+      - name: product_delete_count
+        description: "Account Delete Count"
+        tests:
+          - not_null
+          - positive_value
+      - name: order_placed_count
+        description: "Order Placed Count"
+        tests:
+          - not_null
+          - positive_value
+      - name: order_shipped_count
+        description: "Order Shipped Count"
+        tests:
+          - not_null
+          - positive_value
+      - name: created_utc_datetime
+        description: "Created UTC datetime"
