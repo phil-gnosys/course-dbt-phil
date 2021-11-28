@@ -60,4 +60,4 @@ Use the dbt docs to visualize your model DAGs to ensure the model layers make se
 Paste in an image of your DAG from the docs
 
 DAG:
-![Lineage DAG](../dbt-dag.png)
+![Lineage DAG](./dbt-dag.png)
