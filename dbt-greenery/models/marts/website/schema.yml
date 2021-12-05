@@ -75,3 +75,20 @@ models:
           - positive_value
       - name: created_utc_datetime
         description: "Created UTC datetime"
+
+  - name: analysis_product
+    description: "Production Analysis"
+    columns:
+      - name: product_guid
+        description: "Product GUID (Foreign Key)"
+        tests:
+          - unique
+          - not_null
+      - name: product_description
+        description: "Product Description"
+        tests:
+          - not_null
+      - name: product_conversion_rate
+        description: "Product conversion rate"
+        tests:
+          - positive_value

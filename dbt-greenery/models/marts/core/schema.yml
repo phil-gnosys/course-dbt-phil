@@ -239,3 +239,69 @@ models:
         tests:
           - not_null
 
+  - name: dim_web_session
+    description: "Web Session Dimension"
+    columns:
+      - name: web_session_guid
+        description: "Web session GUID"
+        tests:
+          - unique
+          - not_null
+      - name: web_session_count
+        description: "Web session count (Should be 1)"
+        tests:
+          - not_null
+          - positive_value          
+      - name: web_session_user_count
+        description: "Web session user count (Should be 1)"
+        tests:
+          - not_null
+          - positive_value
+      - name: web_session_event_count
+        description: "Web session event count"
+        tests:
+          - not_null
+          - positive_value
+      - name: web_session_start_utc_datetime
+        description: "Web session start datetime (UTC)"
+        tests:
+          - not_null
+      - name: web_session_end_utc_datetime
+        description: "Web session end datetime (UTC)"
+        tests:
+          - not_null
+      - name: web_session_page_view_count
+        description: "Web session page view count"
+        tests:
+          - not_null
+          - positive_value
+      - name: web_session_add_to_cart_count
+        description: "Web session add to cart count"
+        tests:
+          - not_null
+          - positive_value
+      - name: web_session_delete_from_cart_count
+        description: "Web session delete from cart count"
+        tests:
+          - not_null
+          - positive_value
+      - name: web_session_checkout_count
+        description: "Web session checkout count"
+        tests:
+          - not_null
+          - positive_value
+      - name: web_session_package_shipped_count
+        description: "Web session package shipped count"
+        tests:
+          - not_null
+          - positive_value
+      - name: web_session_account_created_count
+        description: "Web session account created count"
+        tests:
+          - not_null
+          - positive_value
+      - name: web_session_other_event_count
+        description: "Web session other event count"
+        tests:
+          - not_null
+          - positive_value                                                                                                  
