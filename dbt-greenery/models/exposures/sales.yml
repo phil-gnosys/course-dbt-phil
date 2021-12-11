@@ -1,0 +1,14 @@
+version: 2
+
+exposures:
+
+  - name: Sales Pipeline
+    description: Sales Pipeline Dashboard
+    type: dashboard
+    maturity: high
+    owner:
+      name: phil walker
+      email: phil@greenery.com
+    depends_on:
+      - ref('analysis_sales_pipeline')
+
