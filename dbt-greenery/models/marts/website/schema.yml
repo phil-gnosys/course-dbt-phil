@@ -48,28 +48,28 @@ models:
         tests:
           - not_null
           - positive_value
-      - name: product_view_count
-        description: "Product View Count"
+      - name: page_view_count
+        description: "Page View Count"
         tests:
           - not_null
           - positive_value
-      - name: product_add_count
-        description: "Product Add Count"
+      - name: add_to_cart_count
+        description: "Add To Cart Count"
         tests:
           - not_null
           - positive_value
-      - name: product_delete_count
-        description: "Account Delete Count"
+      - name: delete_from_cart_count
+        description: "Delete From Cart Count"
         tests:
           - not_null
           - positive_value
-      - name: order_placed_count
-        description: "Order Placed Count"
+      - name: checkout_count
+        description: "Checkout Count"
         tests:
           - not_null
           - positive_value
-      - name: order_shipped_count
-        description: "Order Shipped Count"
+      - name: package_shipped_count
+        description: "Package Shipped Count"
         tests:
           - not_null
           - positive_value

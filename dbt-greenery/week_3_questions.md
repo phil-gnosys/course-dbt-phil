@@ -104,13 +104,11 @@ ORDER BY
 
 ## (2) Create a macro to simplify part of a model(s).
 
-TODO
-```yml
-```
+Done - Used a macro for the event types in the fact_web_event table
 
 ## (3) Add a post hook to your project to apply grants to the role “reporting”
 
-TODO
+Done - Used a macro for the select.
 
 ## (4) Install a package (i.e. dbt-utils, dbt-expectations) and apply one or more of the macros to your project
 

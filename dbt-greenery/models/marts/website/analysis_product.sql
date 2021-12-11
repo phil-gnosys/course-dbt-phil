@@ -12,7 +12,7 @@ WITH session_product AS
     f.web_session_guid
     , f.product_guid
     , dp.product_description
-    , SUM(f.product_add_count - f.product_delete_count) AS product_in_cart
+    , SUM(f.add_to_cart_count) AS add_to_cart_count
     , MAX(ds.web_session_checkout_count) AS product_checkout
   FROM {{ ref('fact_web_event') }} f
   INNER JOIN {{ ref('dim_web_session') }} ds
@@ -29,9 +29,9 @@ WITH session_product AS
 SELECT
   product_guid
   , product_description
-  , ((SUM(product_checkout) / SUM(product_in_cart)) * 100)::NUMERIC(5,2) AS product_conversion_rate
+  , ((SUM(product_checkout) / SUM(add_to_cart_count)) * 100)::NUMERIC(5,2) AS product_conversion_rate
 FROM session_product
-WHERE product_in_cart IN (0,1)
+WHERE add_to_cart_count IN (0,1)
 GROUP BY
   product_guid
   , product_description
